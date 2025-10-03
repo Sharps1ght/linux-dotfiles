@@ -1,0 +1,21 @@
+configuration	{
+	modes: [ window, drun ];
+}
+
+@theme "material"
+
+element	{
+	orientation: horizontal;
+	children: [ element-text, elenent-icon ];
+	spacing: 8px;
+}
+
+element-icon	{
+	size: 3em;
+}
+
+element-text	{
+	vertical-align: 0.5;
+}
+
+/**/
