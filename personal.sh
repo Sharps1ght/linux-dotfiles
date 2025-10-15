@@ -21,24 +21,19 @@ sleep 1
 sudo pacman --noconfirm -Syyu
 echo "Installing the essentials..."
 sleep 1
-sudo pacman --needed --noconfirm -S ark thunar base-devel btop fastfetch gtk2 gtk3 gtk4 hyprland hyprcursor hypridle hyprlang hyprpaper hyprpicker hyprpolkitagent hyprshot hyprutils imagemagick jre8-openjdk jdk-openjdk kitty mako neovim networkmanager noto-fonts ntfs-3g nerd-fonts nvidia nvidia-utils openvpn pipewire pipewire-alsa pipewire-audio pipewire-jack pipewire-pulse qt5-wayland qt6-wayland rofi-wayland sudo telegram-desktop uwsm vlc wayland wireplumber wl-clipboard xdg-desktop-portal xdg-desktop-portal-hyprland zerotier-one noto-fonts noto-fonts-emoji nerd-fonts
-echo "Enabling necessary services (except ZeroTier One, it is not necessary, but will still be activated)..."
+sudo pacman --needed --noconfirm -S ark thunar base-devel btop dotnet-runtime fastfetch gtk2 gtk3 gtk4 hyprland hyprcursor hypridle hyprlang hyprlock hyprpaper hyprpicker hyprpolkitagent hyprshot hyprutils imagemagick jre8-openjdk jdk-openjdk kitty mako neovim noto-fonts ntfs-3g nerd-fonts nvidia nvidia-utils openvpn pipewire pipewire-alsa pipewire-audio pipewire-jack pipewire-pulse qt5-wayland qt6-wayland rofi-wayland sudo telegram-desktop uwsm vlc wayland wireplumber wl-clipboard xdg-desktop-portal xdg-desktop-portal-hyprland zerotier-one noto-fonts noto-fonts-emoji nerd-fonts
 sleep 1
-systemctl --user enable --now pipewire
-systemctl --user enable --now wireplumber
-sudo systemctl enable --now zerotier-one
 echo "Installing yay..."
 sleep 1
 git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
-cd $HOME
-echo "Installing a few pacakges from AUR using yay..."
+cd .. && rm -rf yay
 sleep 1
-yay --noconfirm -Syyu vesktop-bin upscaler bottles brave-bin
-echo "Installing OpenTabletDriver"
+echo "Installing OpenTablerDriver..."
 sleep 1
 git clone https://aur.archlinux.org/opentabletdriver.git
-cd opentabletdriver && makepkg -si
-cd $HOME
-sudo mkinitcpio -P && sudo rmmod wacom hid_uclogic
-rm -rf yay/ opentablerdriver/
+cd opentabletdriver && dotnet workload update && makepkg -si
+cd ..
+rm -rf opentabletdriver
+sudo mkinitcpio -P
+sudo rmmod wacom hid_uclogic
