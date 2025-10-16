@@ -48,3 +48,4 @@ systemctl daemon-reload
 echo "Everything is done, doing hard reboot in 30 seconds."
 echo "If you don't want to reboot for some reason, press CTRL+C."
 echo "If you want to reboot right now, press CTRL+C and use 'reboot'."
+reboot
