@@ -13,15 +13,12 @@ echo "YOU HAVE 1..."
 sleep 1
 echo "YOU called it upon yourself."
 sleep 3
-#echo "Applying configs..."
-#sleep 1
-#cd $HOME && cp -rf $HOME/linux-dotfiles/* $HOME/.config
-echo "Updating package databases and upgrading installed packages..."
+echo "Applying configs..."
 sleep 1
-sudo pacman --noconfirm -Syyu
-echo "Installing the essentials..."
+cd $HOME && cp -rf $HOME/linux-dotfiles/* $HOME/.config
+echo "Updating database and installing the essentials..."
 sleep 1
-sudo pacman --needed --noconfirm -S ark thunar base-devel btop dotnet-runtime fastfetch fish gtk2 gtk3 gtk4 hyprland hyprcursor hypridle hyprlang hyprlock hyprpaper hyprpicker hyprpolkitagent hyprshot hyprutils imagemagick jre8-openjdk jdk-openjdk kitty mako man-db neovim noto-fonts ntfs-3g nerd-fonts nvidia nvidia-utils openvpn pipewire pipewire-alsa pipewire-audio pipewire-jack pipewire-pulse qt5-wayland qt6-wayland rofi-wayland sudo telegram-desktop uwsm vlc vlc-plugins-all wayland wireplumber wl-clipboard xdg-desktop-portal xdg-desktop-portal-hyprland zerotier-one noto-fonts noto-fonts-emoji nerd-fonts
+sudo pacman --needed --noconfirm -Syyu ark thunar base-devel btop dotnet-runtime fastfetch fish gtk2 gtk3 gtk4 hyprland hyprcursor hypridle hyprlang hyprlock hyprpaper hyprpicker hyprpolkitagent hyprshot hyprutils imagemagick jre8-openjdk jdk-openjdk kitty mako man-db neovim noto-fonts ntfs-3g nerd-fonts nvidia nvidia-utils openvpn pipewire pipewire-alsa pipewire-audio pipewire-jack pipewire-pulse qt5-wayland qt6-wayland rofi-wayland sudo telegram-desktop uwsm vlc vlc-plugins-all wayland wireplumber wl-clipboard xdg-desktop-portal xdg-desktop-portal-hyprland zerotier-one noto-fonts noto-fonts-emoji nerd-fonts
 sleep 1
 echo "Changing default shell to fish (cuz I personally prefer it)..."
 sleep 1
@@ -39,7 +36,7 @@ sleep 1
 echo "Installing OpenTablerDriver..."
 sleep 1
 git clone https://aur.archlinux.org/opentabletdriver.git
-cd opentabletdriver && dotnet workload update && makepkg --noconfirm -si
+cd opentabletdriver && makepkg --noconfirm -si
 cd ..
 rm -rf opentabletdriver
 sudo mkinitcpio -P
