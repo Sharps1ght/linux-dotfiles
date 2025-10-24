@@ -1,0 +1,45 @@
+// -*- mode: jsonc -*-
+
+{
+	"layer": "bottom",
+	"position": "top",
+	"output": "HDMI-A-1",
+
+	"modules-center": [
+		"custom/left-arrow-dark",
+		"clock#1",
+		"custom/right-arrow-dark",
+		"custom/left-arrow-dark",
+		"clock#2",
+		"custom/right-arrow-dark",
+		"custom/left-arrow-dark",
+		"clock#3",
+		"custom/right-arrow-dark",
+	],
+	
+	"custom/left-arrow-dark": {
+		"format": "",
+		"tooltip": false
+	},
+
+	"custom/right-arrow-dark": {
+		"format": "",
+		"tooltip": false
+	},
+
+	"clock#1": {
+		"format": "{:%a}",
+		"tooltip": false
+	},
+
+	"clock#2": {
+		"format": "{:%H:%M:%S}",
+		"interval": 1,
+		"tooltip": false
+	},
+
+	"clock#3": {
+		"format": "{:%d/%m/%y}",
+		"tooltip": false
+	},
+}
