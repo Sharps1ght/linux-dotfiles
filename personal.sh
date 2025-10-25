@@ -33,15 +33,6 @@ git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg --noconfirm -si
 cd .. && rm -rf yay
 sleep 1
-echo "Installing OpenTablerDriver..."
-sleep 1
-git clone https://aur.archlinux.org/opentabletdriver.git
-cd opentabletdriver && makepkg --noconfirm -si
-cd ..
-rm -rf opentabletdriver
-sudo mkinitcpio -P
-sudo rmmod wacom hid_uclogic
-systemctl daemon-reload
 echo "Everything is done, doing hard reboot in 30 seconds."
 echo "If you don't want to reboot for some reason, press CTRL+C."
 echo "If you want to reboot right now, press CTRL+C and use 'reboot'."
