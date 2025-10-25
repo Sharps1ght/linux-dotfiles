@@ -11,18 +11,19 @@ window#waybar {
 #custom-right-arrow-dark,
 #custom-left-arrow-dark
 {
-	font-size: 32px;
+	font-size: 28px;
 	color: rgba(20, 20, 20, .83);
 }
 #custom-right-arrow-dark
 {
-	padding-right: 2px;
+	padding-right: 4px;
 	padding-left: 1px;
 }
 
 #custom-left-arrow-dark
 {
-	padding-left: 2px;
+	padding-right: 1px;
+	padding-left: 4px;
 }
 
 #clock
