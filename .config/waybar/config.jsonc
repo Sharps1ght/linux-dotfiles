@@ -16,6 +16,14 @@
 		"clock#3",
 		"custom/right-arrow-dark",
 	],
+	"modules-right": [
+		"custom/left-arrow-dark",
+		"wireplumber",
+		"custom/right-arrow-dark",
+		"custom/left-arrow-dark",
+		"wireplumber#source",
+		"custom/right-arrow-dark"
+	],
 	
 	"custom/left-arrow-dark": {
 		"format": "",
@@ -41,5 +49,16 @@
 	"clock#3": {
 		"format": "{:%d/%m/%y}",
 		"tooltip": false
+	},
+	"wireplumber": {
+		"format": "{volume}% {icon}",
+		"format-muted": "",
+		"format-icons": ""
+	},
+	"wireplumber#source": {
+		"node-type": "Audio/Source",
+		"format": "{volume}% 󰍬",
+		"format-muted": "󰍭",
+		"on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
 	},
 }
