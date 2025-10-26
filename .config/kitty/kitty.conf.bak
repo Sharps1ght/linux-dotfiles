@@ -12,7 +12,7 @@ font_size 12
 
 
 # BEGIN_KITTY_FONTS
-font_family      family="MartianMono Nerd Font Mono"
+font_family      family="JetBrainsMono"
 bold_font        auto
 italic_font      auto
 bold_italic_font auto

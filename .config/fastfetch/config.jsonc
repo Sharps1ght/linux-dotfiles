@@ -1,5 +1,15 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": {
+	"type": "auto",
+	"source": "$HOME/.config/fastfetch/banner.png",
+	"width": 32,
+	"height": 16,
+	"padding": {
+		"top": 2,
+		"left": 2
+	},
+  },
   "modules": [
     "title",
     "separator",
@@ -23,7 +33,6 @@
     "memory",
     "disk",
     "separator",
-    "locale",
     "break",
     "colors"
   ]
