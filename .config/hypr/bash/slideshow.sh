@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-wallpaperDir="$HOME/.config/hypr/Wallpapers/"
+wallpaperDir="$HOME/Pictures/Wallpapers/"
 currentWall=$(hyprctl hyprpaper listactive)
 monitors=$(hyprctl monitors | grep Monitor | awk '{print $2}')
 timer=15
