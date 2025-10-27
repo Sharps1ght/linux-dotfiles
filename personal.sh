@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo "I AM NOT RESPONSIBLE FOR YOU NOT LIKING"
 echo "WHATEVER I WANT TO USE/LIKE"
 echo "PRESS CTRL+C TO ABORT"
@@ -15,7 +16,7 @@ echo "YOU called it upon yourself."
 sleep 3
 echo "Applying configs..."
 sleep 1
-cd $HOME && cp -rf $HOME/linux-dotfiles/* $HOME/.config
+cd && cp -rf $HOME/linux-dotfiles/* $HOME/.config
 echo "Updating database and installing the essentials..."
 sleep 1
 sudo pacman --needed --noconfirm -Syyu ark thunar btop chromium fastfetch fish gtk2 gtk3 gtk4 hyprland hyprcursor hypridle hyprlang hyprlock hyprpaper hyprpicker hyprpolkitagent hyprshot hyprutils imagemagick kitty mako man-db man-pages neovim noto-fonts noto-fonts-emoji nerd-fonts nvidia-open nvidia-utils openvpn pipewire pipewire-alsa pipewire-audio pipewire-jack pipewire-pulse qt5-wayland qt6-wayland rofi vlc vlc-plugins-all wayland waybar wireplumber wl-clipboard xdg-desktop-portal xdg-desktop-portal-hyprland zerotier-one
