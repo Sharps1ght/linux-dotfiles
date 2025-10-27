@@ -3,7 +3,7 @@
 wallpaperDir="$HOME/Pictures/Wallpapers/"
 currentWall=$(hyprctl hyprpaper listactive)
 monitors=$(hyprctl monitors | grep Monitor | awk '{print $2}')
-timer=15
+timer=30
 
 sleep 3
 while true; do
