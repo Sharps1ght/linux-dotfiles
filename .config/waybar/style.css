@@ -34,4 +34,10 @@ window#waybar {
 #wireplumber
 {
 	background: rgba(20, 20, 20, .83);
+	color: #00aadd;
+}
+
+#wireplumber.source
+{
+	color: tomato;
 }

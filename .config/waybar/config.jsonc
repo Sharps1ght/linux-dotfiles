@@ -4,6 +4,7 @@
 	"layer": "bottom",
 	"position": "top",
 	"output": "HDMI-A-1",
+	"margin-top": 4,
 
 	"modules-center": [
 		"custom/left-arrow-dark",

@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-repo="$(pwd)"
-
-for element in $(find $repo/.config -type f); do
+for element in $(find $(pwd)/.config -type f); do
 	result="$(echo $element | sed "s|^$(pwd)|$HOME|")"
-	cp -r $element $result
-	echo "$result done"
+	if [[ $(stat -c%s $result) -ne $(stat -c%s $element) ]]; then
+		cp -r $element $result
+		echo "$result... done!"
+	else
+		continue
+	fi
 done
