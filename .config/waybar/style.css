@@ -12,7 +12,7 @@ window#waybar {
 #custom-left-arrow-dark
 {
 	font-size: 24px;
-	color: rgba(20, 20, 20, .83);
+	color: rgba(20, 20, 20, .917);
 }
 #custom-right-arrow-dark
 {
@@ -28,16 +28,16 @@ window#waybar {
 
 #clock
 {
-	background: rgba(20, 20, 20, .83);
+	background: rgba(20, 20, 20, .917);
 }
 
 #wireplumber
 {
-	background: rgba(20, 20, 20, .83);
+	background: rgba(20, 20, 20, .917);
 	color: #00aadd;
 }
 
 #wireplumber.source
 {
-	color: tomato;
+	color: #ff6048;
 }
