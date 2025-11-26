@@ -19,6 +19,9 @@
 	],
 	"modules-right": [
 		"custom/left-arrow-dark",
+		"hyprland/language",
+		"custom/right-arrow-dark",
+		"custom/left-arrow-dark",
 		"wireplumber",
 		"custom/right-arrow-dark",
 		"custom/left-arrow-dark",
@@ -51,6 +54,11 @@
 		"format": "{:%d/%m/%y}",
 		"tooltip": false
 	},
+
+	"hyprland/language":	{
+		"format": "{}",
+	},
+
 	"wireplumber": {
 		"format": "{volume}% {icon}",
 		"format-muted": "",

@@ -1,8 +1,8 @@
 configuration	{
-	modes: [ window, drun ];
+	modes: [ combi ];
+	combi-modes: [ window, drun ];
+	dpi: 90;
 }
-
-@theme "material"
 
 element	{
 	orientation: horizontal;
@@ -11,11 +11,11 @@ element	{
 }
 
 element-icon	{
-	size: 3em;
+	size: 4em;
 }
 
 element-text	{
-	vertical-align: 0.5;
+	vertical-align: 1;
 }
 
 /**/
