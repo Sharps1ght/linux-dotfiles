@@ -1,35 +1,18 @@
 #!/usr/bin/env bash
-echo "I AM NOT RESPONSIBLE FOR YOU NOT LIKING"
-echo "WHATEVER I WANT TO USE/LIKE"
-echo "PRESS CTRL+C TO ABORT"
-echo "YOU HAVE 5..."
-sleep 1
-echo "YOU HAVE 4..."
-sleep 1
-echo "YOU HAVE 3..."
-sleep 1
-echo "YOU HAVE 2..."
-sleep 1
-echo "YOU HAVE 1..."
-sleep 1
-echo "YOU called it upon yourself."
-sleep 3
-echo "Applying configs..."
-sleep 1
-cp -r .config ..
-echo "Updating database and installing the essentials..."
-sleep 1
-sudo pacman --needed --noconfirm -Syyu ark thunar btop chromium fastfetch fish gtk2 gtk3 gtk4 hyprland hyprcursor hypridle hyprlang hyprlock hyprpaper hyprpicker hyprpolkitagent hyprshot hyprutils imagemagick kitty mako man-db man-pages neovim noto-fonts noto-fonts-emoji nerd-fonts nvidia-open nvidia-utils openvpn pipewire pipewire-alsa pipewire-audio pipewire-jack pipewire-pulse qt5-wayland qt6-wayland rofi vlc vlc-plugins-all wayland waybar wireplumber wl-clipboard xdg-desktop-portal xdg-desktop-portal-hyprland zerotier-one
-sleep 1
-echo "Changing default shell to fish (cuz I personally prefer it)..."
-sleep 1
+cp -r -v .config ..
+sudo pacman --needed --noconfirm -Syyu ark thunar btop chromium dnscrypt-proxy fastfetch fish gtk2 gtk3 gtk4 hyprland hyprlang hyprpicker hyprpolkitagent hyprshot hyprutils imagemagick kitty mako man-db man-pages neovim noto-fonts noto-fonts-emoji nerd-fonts nvidia-open openvpn pipewire pipewire-alsa pipewire-audio pipewire-jack pipewire-pulse qt5-wayland qt6-wayland rofi swaybg vlc vlc-plugins-all wayland wireplumber wl-clipboard xdg-desktop-portal xdg-desktop-portal-hyprland zerotier-one
 chsh -s /usr/bin/fish $USER
-sleep 1
-echo "JUST IN CASE adding Hyprland to bash startup..."
-echo "exec hyprland" >> /home/$USER/.bash_profile
-sleep 1
-echo "Everything is done, doing hard reboot in 30 seconds."
-echo "If you don't want to reboot for some reason, press CTRL+C."
+sudo systemctl enable --now NetworkManager.service
+sudo systemctl enable --now dnscrypt-proxy.service
+systemctl --user enable --now pipewire
+systemctl --user enable --now wireplumber
+sudo nvim /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+sudo nvim /etc/resolv.conf
+sudo chattr +i /etc/resolv.conf
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 echo "If you want to reboot right now, press CTRL+C and use 'reboot'."
-sleep 30
+for i in {1..30}; do
+	sleep 1
+done
 reboot
