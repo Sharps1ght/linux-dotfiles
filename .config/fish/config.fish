@@ -1,7 +1,3 @@
-if status --is-login
-	exec hyprland
-end
-
 if status is-interactive
 	fastfetch
 end

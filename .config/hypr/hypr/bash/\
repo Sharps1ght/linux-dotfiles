@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+wallpaperDir="$HOME/Pictures/Wallpapers/"
+monitors=$(hyprctl monitors | grep Monitor | awk '{print $2}')
+timer=30
+
+sleep 1
+for display in $monitors; do
+	wallpaper=$(find "$wallpaperDir" -type f ! -name $(basename $(ps -C swaybg -o args= | grep $display | awk '{print $7}')) | shuf -n 1)
+	swaybg -o $display -m fill -i $wallpaper
+	echo "set $(basename $wallpaper) to $display"
+done
+sleep $timer
+while true; do
+	for display in $monitors; do
+	wallpaper=$(find "$wallpaperDir" -type f ! -name $(basename $(ps -C swaybg -o args= | grep $display | awk '{print $7}')) | shuf -n 1)
+	echo "set $(basename $wallpaper) to $display"
+	sleep $timer
+	done
+done
