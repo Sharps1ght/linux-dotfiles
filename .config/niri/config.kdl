@@ -1,3 +1,5 @@
+include "video.kdl"
+
 prefer-no-csd
 input {
     mod-key "Super"
@@ -7,22 +9,29 @@ input {
             layout "us,ru"
             options "grp:alt_shift_toggle,compose:ralt,ctrl:nocaps"
     	}
+    repeat-rate 40
+    repeat-delay 200
+    numlock
     }
     mouse {
         accel-profile "flat"
+    }
+    trackpoint {
+    	natural-scroll
+	accel-profile "flat"
     }
 
 }
 output "eDP-1" {
     mode "1920x1080@60"
-    scale 1
+    scale 1.25
     transform "normal"
     position x=0 y=0
 }
 
 layout {
-    gaps 8
-    center-focused-column "never"
+    gaps 4
+    center-focused-column "always"
     
     preset-column-widths {
         proportion 0.33333
@@ -316,7 +325,7 @@ binds {
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
 
     // Switches focus between the current and the previous workspace.
-    Mod+Tab { focus-workspace-previous; }
+    // Mod+Tab { focus-workspace-previous; }
     // Mod+Shift+Tab { focus-workspace-next; }
 
     // The following binds move the focused window in and out of a column.
@@ -326,17 +335,17 @@ binds {
     Mod+BracketRight { consume-or-expel-window-right; }
 
     // Consume one window from the right to the bottom of the focused column.
-    Mod+Comma  { consume-window-into-column; }
+    // Mod+Comma  { consume-window-into-column; }
     // Expel the bottom window from the focused column to the right.
-    Mod+Period { expel-window-from-column; }
+    // Mod+Period { expel-window-from-column; }
 
     Mod+R { switch-preset-column-width; }
     // Cycling through the presets in reverse order is also possible.
     // Mod+R { switch-preset-column-width-back; }
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
-    Mod+F { maximize-column; }
-    Mod+Shift+F { fullscreen-window; }
+    Mod+M { maximize-column; }
+    Mod+F { fullscreen-window; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
@@ -362,7 +371,7 @@ binds {
 
     // Move the focused window between the floating and the tiling layout.
     Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    // Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
