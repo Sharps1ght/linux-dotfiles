@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 for element in $(find $(pwd)/.config -type f); do
-	fileName=$(basename $element)
-	if [[ $(stat -c%s $element) -ne $(stat -c%s $(find $HOME/.config -type f 
-		cp $(find $HOME/.config -type f -name $fileName) $element
+	target="$(echo $element | sed "s|^$(pwd)|$HOME|")"
+	if [[ $(stat -c%s $target) -ne $(stat -c%s $element) ]]; then
+		cp -r $target $element
+		echo "$target... done!"
+	else
+		continue
+	fi
 done
