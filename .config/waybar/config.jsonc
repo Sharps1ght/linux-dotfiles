@@ -1,73 +1,41 @@
-// -*- mode: jsonc -*-
-
 {
-	"layer": "bottom",
-	"position": "top",
-	"output": "HDMI-A-1",
-	"margin-top": 4,
-
-	"modules-center": [
-		"custom/left-arrow-dark",
-		"clock#1",
-		"custom/right-arrow-dark",
-		"custom/left-arrow-dark",
-		"clock#2",
-		"custom/right-arrow-dark",
-		"custom/left-arrow-dark",
-		"clock#3",
-		"custom/right-arrow-dark",
-	],
-	"modules-right": [
-		"custom/left-arrow-dark",
-		"hyprland/language",
-		"custom/right-arrow-dark",
-		"custom/left-arrow-dark",
-		"wireplumber",
-		"custom/right-arrow-dark",
-		"custom/left-arrow-dark",
-		"wireplumber#source",
-		"custom/right-arrow-dark"
-	],
-	
-	"custom/left-arrow-dark": {
-		"format": "",
-		"tooltip": false
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": {
+	"type": "auto",
+	"source": "$HOME/.config/fastfetch/banner.png",
+	"width": 32,
+	"height": 16,
+	"padding": {
+		"top": 2,
+		"left": 2
 	},
-
-	"custom/right-arrow-dark": {
-		"format": "",
-		"tooltip": false
-	},
-
-	"clock#1": {
-		"format": "{:%a}",
-		"tooltip": false
-	},
-
-	"clock#2": {
-		"format": "{:%H:%M:%S}",
-		"interval": 1,
-		"tooltip": false
-	},
-
-	"clock#3": {
-		"format": "{:%d/%m/%y}",
-		"tooltip": false
-	},
-
-	"hyprland/language":	{
-		"format": "{}",
-	},
-
-	"wireplumber": {
-		"format": "{volume}% {icon}",
-		"format-muted": "",
-		"format-icons": ""
-	},
-	"wireplumber#source": {
-		"node-type": "Audio/Source",
-		"format": "{volume}% 󰍬",
-		"format-muted": "󰍭",
-		"on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
-	},
+  },
+  "modules": [
+    "title",
+    "separator",
+    "os",
+    "kernel",
+    "packages",
+    "shell",
+    "display",
+    "de",
+    "wm",
+    "wmtheme",
+    "theme",
+    "icons",
+    "font",
+    "cursor",
+    "terminal",
+    "terminalfont",
+    "separator",
+    "cpu",
+    "gpu",
+    "memory",
+    "disk",
+    "separator",
+    "break",
+    "battery",
+    "break",
+    "colors"
+  ]
 }

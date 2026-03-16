@@ -199,7 +199,8 @@
             "enabled": false
         },
         "FixImagesQuality": {
-            "enabled": true
+            "enabled": true,
+            "originalImagesInChat": false
         },
         "FixSpotifyEmbeds": {
             "enabled": true
@@ -246,7 +247,7 @@
         "ImageZoom": {
             "enabled": true,
             "size": 470,
-            "zoom": 5,
+            "zoom": 15.318181818181818,
             "saveZoomValues": true,
             "nearestNeighbour": false,
             "square": false,
@@ -298,9 +299,6 @@
             "ignoreGuilds": "",
             "logEdits": true,
             "logDeletes": true
-        },
-        "MessageTags": {
-            "enabled": false
         },
         "MutualGroupDMs": {
             "enabled": false
@@ -627,6 +625,12 @@
         },
         "ImageFilename": {
             "enabled": false
+        },
+        "MoreQuickReactions": {
+            "enabled": false
+        },
+        "CustomCommands": {
+            "enabled": false
         }
     },
     "notifications": {
@@ -639,6 +643,10 @@
         "authenticated": false,
         "url": "https://api.vencord.dev/",
         "settingsSync": false,
-        "settingsSyncVersion": 1760684538694
+        "settingsSyncVersion": 1773495335393
+    },
+    "uiElements": {
+        "chatBarButtons": {},
+        "messagePopoverButtons": {}
     }
 }
