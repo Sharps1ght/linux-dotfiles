@@ -20,6 +20,7 @@ sudo systemctl enable --now NetworkManager.service
 sudo systemctl enable --now dnscrypt-proxy.service
 systemctl --user enable --now pipewire
 systemctl --user enable --now wireplumber
+cp -r .config/* ~/.config/
 mkdir ~/osu/
 ln -s ~/osu/ ~/.local/share/osu
 curl -L -o ~/osu/osu.AppImage https://guthub.com/ppy/osu/releases/latest/download/osu.AppImage
