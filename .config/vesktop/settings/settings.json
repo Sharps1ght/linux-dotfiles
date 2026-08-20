@@ -184,7 +184,11 @@
             "enableEmojiBypass": true,
             "transformEmojis": true,
             "transformStickers": true,
-            "transformCompoundSentence": false
+            "transformCompoundSentence": false,
+            "emojiSize": 48,
+            "hyperLinkText": "{{NAME}}",
+            "useHyperLinks": true,
+            "disableEmbedPermissionCheck": false
         },
         "FakeProfileThemes": {
             "enabled": false
@@ -246,8 +250,8 @@
         },
         "ImageZoom": {
             "enabled": true,
-            "size": 470,
-            "zoom": 15.318181818181818,
+            "size": 830,
+            "zoom": 2.1181818181818244,
             "saveZoomValues": true,
             "nearestNeighbour": false,
             "square": false,
@@ -265,9 +269,6 @@
             "enabled": false
         },
         "KeepCurrentChannel": {
-            "enabled": false
-        },
-        "LastFMRichPresence": {
             "enabled": false
         },
         "LoadingQuotes": {
@@ -298,7 +299,8 @@
             "ignoreChannels": "",
             "ignoreGuilds": "",
             "logEdits": true,
-            "logDeletes": true
+            "logDeletes": true,
+            "inlineEdits": true
         },
         "MutualGroupDMs": {
             "enabled": false
@@ -353,7 +355,10 @@
             "notificationVolume": 69
         },
         "OnePingPerDM": {
-            "enabled": true
+            "enabled": true,
+            "channelToAffect": "both_dms",
+            "allowMentions": false,
+            "allowEveryone": false
         },
         "oneko": {
             "enabled": true
@@ -384,7 +389,8 @@
             "userBasedCategoryList": {
                 "227090659415162881": []
             },
-            "canCollapseDmSection": false
+            "canCollapseDmSection": false,
+            "pinOrder": 0
         },
         "PlainFolderIcon": {
             "enabled": false
@@ -458,7 +464,8 @@
         "ShowHiddenChannels": {
             "enabled": true,
             "showMode": 0,
-            "hideUnreads": true
+            "hideUnreads": true,
+            "defaultAllowedUsersAndRolesDropdownState": true
         },
         "ShowHiddenThings": {
             "enabled": true,
@@ -531,7 +538,9 @@
         },
         "TypingTweaks": {
             "enabled": true,
-            "alternativeFormatting": true
+            "alternativeFormatting": true,
+            "showRoleColors": true,
+            "showAvatars": true
         },
         "Unindent": {
             "enabled": false
@@ -631,6 +640,18 @@
         },
         "CustomCommands": {
             "enabled": false
+        },
+        "NoDefaultHangStatus": {
+            "enabled": false
+        },
+        "CharacterCounter": {
+            "enabled": false
+        },
+        "NoMiddleClickPaste": {
+            "enabled": false
+        },
+        "MusicRichPresence": {
+            "enabled": false
         }
     },
     "notifications": {
@@ -643,10 +664,11 @@
         "authenticated": false,
         "url": "https://api.vencord.dev/",
         "settingsSync": false,
-        "settingsSyncVersion": 1773495335393
+        "settingsSyncVersion": 1784707136957
     },
     "uiElements": {
         "chatBarButtons": {},
         "messagePopoverButtons": {}
-    }
+    },
+    "windowsMaterial": "none"
 }

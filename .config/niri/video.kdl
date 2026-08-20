@@ -9,5 +9,5 @@ output "HDMI-A-1" {
     mode "1920x1080@143.996"
     scale 1
     transform "normal"
-    position x=1920 y=-320
+    position x=-1920 y=320
 }
