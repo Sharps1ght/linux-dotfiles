@@ -16,11 +16,19 @@ Scope {
 
     onLoaded: {
       root.wallpaperDirs = adapter.dirs || []
+      if (adapter.lastDir) {
+        root.wallpaperDir = adapter.lastDir
+      }
+      if (adapter.lastImage) {
+        root.wallpaperLastImage = adapter.lastImage
+      }
     }
 
     JsonAdapter {
       id: adapter
       property var dirs: []
+      property string lastDir: ""
+      property string lastImage: ""
     }
 
     function addDir(path) {
@@ -39,6 +47,27 @@ Scope {
     }
   }
 
+  Process {
+    id: awwwQueryProc
+    stdout: StdioCollector {
+      onStreamFinished: {
+        try {
+          var data = JSON.parse(text)
+          var ns = data[""]
+          var result = {}
+          for (var i = 0; i < ns.length; i++) {
+            result[ns[i].name] = ns[i].displaying.image || ""
+          }
+          root.awwwWallpapers = result
+        } catch(e) {}
+      }
+    }
+  }
+
+  Process {
+    id: awwwApplyProc
+  }
+
   Variants {
     model: Quickshell.screens
 
@@ -55,12 +84,21 @@ Scope {
 
       property bool wallpaperManagerPanelState: false
       property bool spawning: false
+      property string activeWallpaper: root.awwwWallpapers[modelData.name] || ""
       property bool closing: false
+      property string hoveredImagePath: ""
+      property string pendingHoveredImage: ""
 
       property var imageFiles: []
       property int currentIndex: -1
       property string currentImagePath: ""
       property bool dirListOpen: false
+
+      Timer {
+        id: hoverDebounceTimer
+        interval: Config.sleep.animationDuration
+        onTriggered: wallpaperManagerPanel.hoveredImagePath = wallpaperManagerPanel.pendingHoveredImage
+      }
 
       function syncState() {
         const shouldShow = root.wallpaperManagerOpen && root.focusedScreen === modelData
@@ -109,15 +147,23 @@ Scope {
           }
         }
         imageFiles = files
-        if (files.length > 0 && currentIndex < 0) {
-          currentIndex = 0
-          currentImagePath = files[0].path
+        if (files.length > 0) {
+          if (root.wallpaperLastImage) {
+            for (var k = 0; k < files.length; k++) {
+              if (files[k].path === root.wallpaperLastImage) {
+                currentIndex = k
+                currentImagePath = files[k].path
+                return
+              }
+            }
+          }
+          if (currentIndex < 0 || currentIndex >= files.length) {
+            currentIndex = 0
+            currentImagePath = files[0].path
+          }
         } else if (files.length === 0) {
           currentIndex = -1
           currentImagePath = ""
-        } else if (currentIndex >= files.length) {
-          currentIndex = files.length - 1
-          currentImagePath = files[currentIndex].path
         }
       }
 
@@ -125,6 +171,8 @@ Scope {
         if (path && path.length > 0) {
           folderModel.folder = "file://" + path
           root.wallpaperDir = path
+          adapter.lastDir = path
+          wallpaperConfig.writeAdapter()
         }
       }
 
@@ -194,7 +242,12 @@ Scope {
 
       Connections {
         target: root
-        function onWallpaperManagerOpenChanged() { syncState() }
+        function onWallpaperManagerOpenChanged() {
+          if (root.wallpaperManagerOpen) {
+            awwwQueryProc.exec(["awww", "query", "--json"])
+          }
+          syncState()
+        }
         function onFocusedScreenChanged() { syncState() }
         function onWallpaperDirsChanged() { wallpaperManagerPanel.updateComboModel() }
       }
@@ -272,6 +325,13 @@ Scope {
                 anchors.centerIn: parent
                 text: ""
                 color: theme.fg
+                scale: prevButtonArea.containsMouse ? 1.25 : 1
+
+                Behavior on scale {
+                  NumberAnimation { duration: Config.sleep.animationDurationShort; easing.type: Easing.Linear }
+                }
+
+
                 font.family: Config.ui.fontFamily
                 font.pixelSize: Config.ui.fontSize
               }
@@ -285,6 +345,9 @@ Scope {
                   var len = wallpaperManagerPanel.imageFiles.length
                   wallpaperManagerPanel.currentIndex = (wallpaperManagerPanel.currentIndex - 1 + len) % len
                   wallpaperManagerPanel.currentImagePath = wallpaperManagerPanel.imageFiles[wallpaperManagerPanel.currentIndex].path
+                  root.wallpaperLastImage = wallpaperManagerPanel.currentImagePath
+                  adapter.lastImage = wallpaperManagerPanel.currentImagePath
+                  wallpaperConfig.writeAdapter()
                 }
               }
             }
@@ -295,21 +358,23 @@ Scope {
               color: "transparent"
               radius: Config.ui.fontSize
 
+              property string displayImage: wallpaperManagerPanel.hoveredImagePath || wallpaperManagerPanel.activeWallpaper
+
               Image {
                 anchors.fill: parent
                 anchors.margins: 1
-                source: wallpaperManagerPanel.currentImagePath ? "file://" + wallpaperManagerPanel.currentImagePath : ""
+                source: parent.displayImage ? "file://" + parent.displayImage : ""
                 fillMode: Image.PreserveAspectFit
-                visible: wallpaperManagerPanel.currentImagePath !== ""
+                visible: parent.displayImage !== ""
               }
 
               Text {
                 anchors.centerIn: parent
-                text: "No image selected"
+                text: "No active wallpaper"
                 color: theme.muted
                 font.family: Config.ui.fontFamily
                 font.pixelSize: Config.ui.fontSize - 4
-                visible: wallpaperManagerPanel.currentImagePath === ""
+                visible: parent.displayImage === ""
               }
             }
 
@@ -323,6 +388,12 @@ Scope {
                 anchors.centerIn: parent
                 text: ""
                 color: theme.fg
+                scale: nextButtonArea.containsMouse ? 1.25 : 1
+
+                Behavior on scale {
+                  NumberAnimation { duration: Config.sleep.animationDurationShort; easing.type: Easing.Linear }
+                }
+
                 font.family: Config.ui.fontFamily
                 font.pixelSize: Config.ui.fontSize
               }
@@ -336,6 +407,9 @@ Scope {
                   var len = wallpaperManagerPanel.imageFiles.length
                   wallpaperManagerPanel.currentIndex = (wallpaperManagerPanel.currentIndex + 1) % len
                   wallpaperManagerPanel.currentImagePath = wallpaperManagerPanel.imageFiles[wallpaperManagerPanel.currentIndex].path
+                  root.wallpaperLastImage = wallpaperManagerPanel.currentImagePath
+                  adapter.lastImage = wallpaperManagerPanel.currentImagePath
+                  wallpaperConfig.writeAdapter()
                 }
               }
             }
@@ -350,11 +424,12 @@ Scope {
             Text {
               anchors { left: parent.left; leftMargin: Config.ui.mainMargin * 4; verticalCenter: parent.verticalCenter }
               text: {
-                if (wallpaperManagerPanel.currentImagePath) {
-                  var parts = wallpaperManagerPanel.currentImagePath.split("/")
+                var img = wallpaperManagerPanel.hoveredImagePath || wallpaperManagerPanel.activeWallpaper
+                if (img) {
+                  var parts = img.split("/")
                   return parts[parts.length - 1]
                 }
-                return "No image"
+                return "No active wallpaper"
               }
               color: theme.fg
               font.family: Config.ui.fontFamily
@@ -376,16 +451,16 @@ Scope {
               implicitHeight: Config.ui.fontSize * 1.5
               radius: Config.ui.fontSize
               color: (arrowHoverArea.containsMouse || dirToggleArea.containsMouse) ? theme.hoverSubtle : "transparent"
-
               anchors { right: parent.right; rightMargin: Config.ui.mainMargin - 2; verticalCenter: parent.verticalCenter }
 
               Text {
                 anchors.centerIn: parent
                 text: wallpaperManagerPanel.dirListOpen ? "" : ""
                 color: theme.fg
+                scale: arrowHoverArea.containsMouse ? 1.25 : 1
 
-                Behavior on color {
-                  NumberAnimation { duration: Config.sleep.animationDuration * 5; easing.type: Easing.Linear}
+                Behavior on scale {
+                  NumberAnimation { duration: Config.sleep.animationDurationShort; easing.type: Easing.Linear }
                 }
 
                 font.family: Config.ui.fontFamily
@@ -440,10 +515,18 @@ Scope {
                   id: inlineRowMouseArea
                   anchors.fill: parent
                   hoverEnabled: true
-                  onClicked: {
+                  onEntered: {
+                    if (model.itemType === "image") {
+                      wallpaperManagerPanel.pendingHoveredImage = model.itemPath
+                      hoverDebounceTimer.restart()
+                    }
+                  }
+                  onReleased: {
                     if (model.itemType === "dir" || model.itemType === "saved" || model.itemType === "unsaved") {
                       wallpaperManagerPanel.navigateTo(model.itemPath)
                     } else if (model.itemType === "image") {
+                      awwwApplyProc.exec(["awww", "img", "-o", wallpaperManagerPanel.modelData.name, model.itemPath])
+                      root.awwwWallpapers[wallpaperManagerPanel.modelData.name] = model.itemPath
                       var files = wallpaperManagerPanel.imageFiles
                       for (var i = 0; i < files.length; i++) {
                         if (files[i].path === model.itemPath) {
@@ -452,6 +535,9 @@ Scope {
                           break
                         }
                       }
+                      root.wallpaperLastImage = model.itemPath
+                      adapter.lastImage = model.itemPath
+                      wallpaperConfig.writeAdapter()
                     }
                   }
                 }
@@ -492,10 +578,21 @@ Scope {
 
                   Text {
                     text: {
+                      if (model.itemType === "dir") return "\uD83D\uDCC1"
+                      if (model.itemType === "image") return "\uD83D\uDDBC\uFE0F"
+                      return ""
+                    }
+                    visible: model.itemType === "dir" || model.itemType === "image"
+                    color: theme.fg
+                    font.family: Config.ui.fontFamily
+                    font.pixelSize: Config.ui.fontSize - 4
+                    Layout.alignment: Qt.AlignVCenter
+                  }
+
+                  Text {
+                    text: {
                       if (model.itemType === "saved") return model.itemName
                       if (model.itemType === "unsaved") return model.itemName
-                      if (model.itemType === "dir") return "\uD83D\uDCC1 " + model.itemName
-                      if (model.itemType === "image") return "\uD83D\uDDBC\uFE0F " + model.itemName
                       if (model.itemType === "separator") return "---"
                       return model.itemName
                     }
@@ -504,6 +601,7 @@ Scope {
                     font.pixelSize: Config.ui.fontSize - 4
                     elide: Text.ElideRight
                     Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignVCenter
                   }
                 }
               }

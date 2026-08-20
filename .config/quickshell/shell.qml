@@ -303,7 +303,9 @@ Scope {
   property bool settingsMenuEnabled: false
   property bool displayCenterDotEnabled: false
   property string wallpaperDir: ""
+  property string wallpaperLastImage: ""
   property var wallpaperDirs: []
+  property var awwwWallpapers: ({})
   property string barTime: Qt.formatDateTime(new Date(), "HH:mm:ss")
   property bool calendarCloseLock: false
 

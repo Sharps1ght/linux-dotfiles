@@ -74,7 +74,7 @@ OverlayPanel {
         Layout.fillWidth: true
         implicitHeight: layout.implicitHeight + Config.ui.mainMargin * 2
         implicitWidth: Config.ui.notificationIconSize + Config.ui.mainMargin * 4
-        color: cardMouseArea.containsMouse ? theme.hoverStrong : theme.panelBg
+        color: theme.panelBg
 
         Timer {
           running: card.modelData.urgency !== NotificationUrgency.Critical
@@ -82,7 +82,7 @@ OverlayPanel {
           onTriggered: card.animateDismiss()
         }
 
-        border.width: modelData.urgency === NotificationUrgency.Critical ? 2 : 0
+        border.width: modelData.urgency === NotificationUrgency.Critical ? Config.ui.mainMargin / 4 : 0
         border.color: modelData.urgency === NotificationUrgency.Critical ? theme.error : "transparent"
 
         RowLayout {

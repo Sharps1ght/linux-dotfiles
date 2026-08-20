@@ -58,8 +58,8 @@ QtObject {
     readonly property color todayFg: t.bg
     readonly property color error: t.red
 
-    readonly property color hoverSubtle: "#20ffffff"
-    readonly property color hoverStrong: "#40ffffff"
+    readonly property color hoverSubtle: "#40ffffff"
+    readonly property color hoverStrong: "#80ffffff"
     readonly property color textOutline: "#80151515"
     readonly property color textOutlineLight: "#88151515"
 }
