@@ -116,8 +116,8 @@ animations {
 spawn-at-startup "qs"
 spawn-at-startup "tg-ws-proxy"
 spawn-sh-at-startup "awww-daemon --no-cache"
-//spawn-sh-at-startup "awww img $HOME/Pictures/Wallpapers/Number084.png -o HDMI-A-1,DP-1"
-spawn-sh-at-startup "~/.config/niri/scripts/awww-slide.sh"
+spawn-sh-at-startup "awww img $HOME/Pictures/Wallpapers/Number084.png -o HDMI-A-1,DP-1"
+//spawn-sh-at-startup "~/.config/niri/scripts/awww-slide.sh"
 
 binds {
   // Keys consist of modifiers separated by + signs, followed by an XKB key name
